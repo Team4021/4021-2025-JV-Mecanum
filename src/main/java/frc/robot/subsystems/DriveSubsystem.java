@@ -74,7 +74,7 @@ public class DriveSubsystem extends SubsystemBase {
 	 TalonFX m_leftBackMotor = new TalonFX(2); // NEO motor
 	 TalonFX m_rightBackMotor = new TalonFX(3); // NEO motor
 
-	 robotDrive = new MecanumDrive(m_leftFrontMotor, m_rightFrontMotor, m_leftBackMotor, m_rightBackMotor);
+	 robotDrive = new MecanumDrive( m_leftFrontMotor, m_rightFrontMotor, m_leftBackMotor, m_rightBackMotor);
 	//odometry = new MecanumDriveOdometry(kDriveKinematics, navx.getRotation2d(), getWheelPositions());	
 
     //resetEncoders(); // Zero the drive encoders
