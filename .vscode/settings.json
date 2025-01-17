@@ -56,5 +56,7 @@
     "edu.wpi.first.math.proto.*",
     "edu.wpi.first.math.**.proto.*",
     "edu.wpi.first.math.**.struct.*",
-  ]
+  ],
+  "javascript.suggest.includeCompletionsForImportStatements": false,
+  "typescript.suggest.includeCompletionsForImportStatements": false
 }

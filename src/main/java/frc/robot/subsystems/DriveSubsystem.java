@@ -35,7 +35,7 @@ public class DriveSubsystem extends SubsystemBase {
 	private static TalonFX m_leftBackMotor; // NEO motor
 	private static TalonFX m_rightBackMotor; // NEO motor
 
-	// May Be Useful For XBox Controller robotDrive.mecanumDrive_Cartesian(joystick.getRawAxis(whateverYourXAxisIs), joystick.getRawAxis(whateverYourYAxisIs), joystick.getRawAxis(whateverYourRotateAxisIs), whateverYourGyroValueIs);
+	// MAY BE USEFUL FOR FUTURE XBOX CONTROLLER robotDrive.mecanumDrive_Cartesian(joystick.getRawAxis(whateverYourXAxisIs), joystick.getRawAxis(whateverYourYAxisIs), joystick.getRawAxis(whateverYourRotateAxisIs), whateverYourGyroValueIs)
 
 	SlewRateLimiter rightFilter;
 	SlewRateLimiter leftFilter;
@@ -69,12 +69,12 @@ public class DriveSubsystem extends SubsystemBase {
   public DriveSubsystem() {
     // Instantiate the Drivetrain motor controllers
 
-	final TalonFX m_leftFrontMotor = new TalonFX(0); // NEO motor
-	final TalonFX m_rightFrontMotor = new TalonFX(1); // NEO motor
-	final TalonFX m_leftBackMotor = new TalonFX(2); // NEO motor
-	final TalonFX m_rightBackMotor = new TalonFX(3); // NEO motor
+	 TalonFX m_leftFrontMotor = new TalonFX(0); // NEO motor
+	 TalonFX m_rightFrontMotor = new TalonFX(1); // NEO motor
+	 TalonFX m_leftBackMotor = new TalonFX(2); // NEO motor
+	 TalonFX m_rightBackMotor = new TalonFX(3); // NEO motor
 
-	robotDrive = new MecanumDrive(m_leftFrontMotor, m_rightFrontMotor, m_leftBackMotor, m_rightBackMotor);
+	 robotDrive = new MecanumDrive(m_leftFrontMotor, m_rightFrontMotor, m_leftBackMotor, m_rightBackMotor);
 	//odometry = new MecanumDriveOdometry(kDriveKinematics, navx.getRotation2d(), getWheelPositions());	
 
     //resetEncoders(); // Zero the drive encoders
@@ -97,7 +97,7 @@ public class DriveSubsystem extends SubsystemBase {
 		navx.reset();
 	}
 	public double getYaw() {
-		return navx.getYaw();
+		return navx.getYaw()
 	}
 	public double getPitch() {
 		return navx.getPitch();
