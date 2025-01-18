@@ -13,6 +13,8 @@ import edu.wpi.first.wpilibj.motorcontrol.PWMTalonFX;
 
 //import com.ctre.phoenix6.hardware.TalonFX;
 
+import edu.wpi.first.wpilibj.XboxController;
+
 import edu.wpi.first.math.filter.SlewRateLimiter;
 import edu.wpi.first.wpilibj.drive.MecanumDrive;
 //import edu.wpi.first.wpilibj.drive.RobotDriveBase;
@@ -240,4 +242,49 @@ public class DriveSubsystem extends SubsystemBase {
 	public double speedToMeters(double speed) {
 		return speed / 60 * Math.PI * Constants.WHEEL_DIAMETER;
 	} */
+
+public class Robot {
+
+    XboxController controller = new XboxController(0); // Assuming controller is on USB port 0
+
+    // ... Motor controller objects for your Mecanum wheels
+
+
+
+    public void teleopPeriodic() {
+
+        double moveForward = controller.getLeftY(); // Get forward/backward input
+
+        double strafeRight = controller.getLeftX(); // Get strafing input
+
+        double rotate = controller.getRightX(); // Get rotation input
+
+
+
+        // Calculate wheel speeds based on Mecanum math
+
+        double frontLeftSpeed = moveForward + strafeRight + rotate;
+
+        double frontRightSpeed = moveForward - strafeRight - rotate;
+
+        double backLeftSpeed = moveForward - strafeRight + rotate;
+
+        double backRightSpeed = moveForward + strafeRight - rotate;
+
+
+
+        // Set motor speeds
+
+        m_leftFrontMotor.set(frontLeftSpeed);
+
+        m_rightFrontMotor.set(frontRightSpeed);
+
+        m_leftBackMotor.set(backLeftSpeed);
+
+        m_rightBackMotor.set(backRightSpeed);
+
+    }
+
+}
+
 }
