@@ -40,7 +40,7 @@ public class DriveSubsystem extends SubsystemBase {
 	private static PWMTalonFX m_rightBackMotor; // NEO motor
 
 	SlewRateLimiter rightFilter;
-	SlewRateLimiter leftFilter;
+	SlewRateLimiter leftFilter; 
 
 	//private double DRIVE_GEAR_RATIO = Constants.DRIVE_GEAR_RATIO;
 
@@ -51,12 +51,12 @@ public class DriveSubsystem extends SubsystemBase {
 	private static final double TRACK_WIDTH = Constants.TRACK_WIDTH;
 	private static final double WHEEL_BASE = Constants.WHEEL_BASE;{
 
-	//private static final SimpleMotorFeedforward kFeedforward = new SimpleMotorFeedforward(0.17472, 2.7572, 0.45109); // kS, kV, kA Characterization Constants
-	//private static final TrapezoidProfile.Constraints kThetaControllerConstraints = new TrapezoidProfile.Constraints(Constants.kMAX_ANGULAR_SPEED_RADIANS_PER_SECOND, Constants.kMAX_ANGULAR_ACCELERATION_RADIANS_PER_SECOND_SQUARED);
-	//private final PIDController frontLeftPIDController = new PIDController(Constants.kP_FRONT_LEFT_VELOCITY, 0, 0);
-  	//private final PIDController frontRightPIDController = new PIDController(Constants.kP_FRONT_RIGHT_VELOCITY, 0, 0);
-  	//private final PIDController backLeftPIDController = new PIDController(Constants.kP_BACK_LEFT_VELOCITY, 0, 0);
-  	//private final PIDController backRightPIDController = new PIDController(Constants.kP_BACK_RIGHT_VELOCITY, 0, 0);
+	/*private static final SimpleMotorFeedforward kFeedforward = new SimpleMotorFeedforward(0.17472, 2.7572, 0.45109); // kS, kV, kA Characterization Constants
+	private static final TrapezoidProfile.Constraints kThetaControllerConstraints = new TrapezoidProfile.Constraints(Constants.kMAX_ANGULAR_SPEED_RADIANS_PER_SECOND, Constants.kMAX_ANGULAR_ACCELERATION_RADIANS_PER_SECOND_SQUARED);
+	private final PIDController frontLeftPIDController = new PIDController(Constants.kP_FRONT_LEFT_VELOCITY, 0, 0);
+  	private final PIDController frontRightPIDController = new PIDController(Constants.kP_FRONT_RIGHT_VELOCITY, 0, 0);
+  	private final PIDController backLeftPIDController = new PIDController(Constants.kP_BACK_LEFT_VELOCITY, 0, 0);
+  	private final PIDController backRightPIDController = new PIDController(Constants.kP_BACK_RIGHT_VELOCITY, 0, 0);*/
 
 	//private static final MecanumDriveKinematics kDriveKinematics =
 		new MecanumDriveKinematics(new Translation2d(WHEEL_BASE / 2, TRACK_WIDTH / 2), 
