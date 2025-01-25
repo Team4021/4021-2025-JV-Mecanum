@@ -6,71 +6,65 @@ package frc.robot.subsystems;
 import frc.robot.Constants;
 
 import com.studica.frc.AHRS;
-import com.ctre.phoenix6.CANBus;
-import com.ctre.phoenix6.controls.PositionDutyCycle;
-import com.ctre.phoenix6.hardware.TalonFX;
+
 
 import edu.wpi.first.math.filter.SlewRateLimiter;
 import edu.wpi.first.wpilibj.drive.MecanumDrive;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import edu.wpi.first.math.controller.PIDController;
-import edu.wpi.first.math.controller.SimpleMotorFeedforward;
-import edu.wpi.first.math.geometry.Pose2d;
+//import edu.wpi.first.math.controller.PIDController;
+//import edu.wpi.first.math.controller.SimpleMotorFeedforward;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.MecanumDriveKinematics;
-import edu.wpi.first.math.kinematics.MecanumDriveOdometry;
-import edu.wpi.first.math.kinematics.MecanumDriveWheelPositions;
-import edu.wpi.first.math.kinematics.MecanumDriveWheelSpeeds;
-import edu.wpi.first.math.trajectory.TrapezoidProfile;
+//import edu.wpi.first.math.kinematics.MecanumDriveOdometry;
+//import edu.wpi.first.math.trajectory.TrapezoidProfile;
 
 /** Drivetrain ****************************************************************
  * The mecanum drivetrain subsystem of the robot. */
 public class DriveSubsystem extends SubsystemBase {
   
 	// Drivetrain Motor Controllers
-	private static TalonFX m_leftFrontMotor; // NEO motor
-	private static TalonFX m_rightFrontMotor; // NEO motor
-	private static TalonFX m_leftBackMotor; // NEO motor
-	private static TalonFX m_rightBackMotor; // NEO motor
+	private static CANSparkMax m_leftFrontMotor; // NEO motor
+	private static CANSparkMax m_rightFrontMotor; // NEO motor
+	private static CANSparkMax m_leftBackMotor; // NEO motor
+	private static CANSparkMax m_rightBackMotor; // NEO motor
 
 	SlewRateLimiter rightFilter;
 	SlewRateLimiter leftFilter;
 
-	private double DRIVE_GEAR_RATIO = Constants.DRIVE_GEAR_RATIO;
+	//private double DRIVE_GEAR_RATIO = Constants.DRIVE_GEAR_RATIO;
 
 	private AHRS navx = new AHRS(AHRS.NavXComType.kUSB1); // Instantiate a NavX Gyroscope connected to a roboRIO USB port
 
 	double leftFrontPositionZero, rightFrontPositionZero, leftBackPositionZero, rightBackPositionZero = 0.0;
 
 	private static final double TRACK_WIDTH = Constants.TRACK_WIDTH;
-	private static final double WHEEL_BASE = Constants.WHEEL_BASE;
+	private static final double WHEEL_BASE = Constants.WHEEL_BASE;{	
 
-	private static final SimpleMotorFeedforward kFeedforward = new SimpleMotorFeedforward(0.17472, 2.7572, 0.45109); // kS, kV, kA Characterization Constants
-	private static final TrapezoidProfile.Constraints kThetaControllerConstraints = new TrapezoidProfile.Constraints(Constants.kMAX_ANGULAR_SPEED_RADIANS_PER_SECOND, Constants.kMAX_ANGULAR_ACCELERATION_RADIANS_PER_SECOND_SQUARED);
-	private final PIDController frontLeftPIDController = new PIDController(Constants.kP_FRONT_LEFT_VELOCITY, 0, 0);
-  	private final PIDController frontRightPIDController = new PIDController(Constants.kP_FRONT_RIGHT_VELOCITY, 0, 0);
-  	private final PIDController backLeftPIDController = new PIDController(Constants.kP_BACK_LEFT_VELOCITY, 0, 0);
-  	private final PIDController backRightPIDController = new PIDController(Constants.kP_BACK_RIGHT_VELOCITY, 0, 0);
+	// private static final SimpleMotorFeedforward kFeedforward = new SimpleMotorFeedforward(0.17472, 2.7572, 0.45109); // kS, kV, kA Characterization Constants
+	// private static final TrapezoidProfile.Constraints kThetaControllerConstraints = new TrapezoidProfile.Constraints(Constants.kMAX_ANGULAR_SPEED_RADIANS_PER_SECOND, Constants.kMAX_ANGULAR_ACCELERATION_RADIANS_PER_SECOND_SQUARED);
+	// private final PIDController frontLeftPIDController = new PIDController(Constants.kP_FRONT_LEFT_VELOCITY, 0, 0);
+  	// private final PIDController frontRightPIDController = new PIDController(Constants.kP_FRONT_RIGHT_VELOCITY, 0, 0);
+  	// private final PIDController backLeftPIDController = new PIDController(Constants.kP_BACK_LEFT_VELOCITY, 0, 0);
+  	// private final PIDController backRightPIDController = new PIDController(Constants.kP_BACK_RIGHT_VELOCITY, 0, 0);
 
-	private static final MecanumDriveKinematics kDriveKinematics =
+	//private static final MecanumDriveKinematics kDriveKinematics =
 		new MecanumDriveKinematics(new Translation2d(WHEEL_BASE / 2, TRACK_WIDTH / 2), 
 								   new Translation2d(WHEEL_BASE / 2, -TRACK_WIDTH / 2), 
 								   new Translation2d(-WHEEL_BASE / 2, TRACK_WIDTH / 2), 
-								   new Translation2d(-WHEEL_BASE / 2, -TRACK_WIDTH / 2));
+								   new Translation2d(-WHEEL_BASE / 2, -TRACK_WIDTH / 2));}
 
 	private static MecanumDrive robotDrive;
-	private static MecanumDriveOdometry odometry;
+	//private static MecanumDriveOdometry odometry;
   
   /** Subsystem for controlling the Drivetrain and accessing the NavX Gyroscope */
   public DriveSubsystem() {
     // Instantiate the Drivetrain motor controllers
 
-	final TalonFX m_leftFrontMotor = new TalonFX(0); // NEO motor
-	final TalonFX m_rightFrontMotor = new TalonFX(1); // NEO motor
-	final TalonFX m_leftBackMotor = new TalonFX(2); // NEO motor
-	final TalonFX m_rightBackMotor = new TalonFX(3); // NEO motor
+	final CANSparkMax m_leftFrontMotor = new CANSparkMax(0); // NEO motor
+	final CANSparkMax m_rightFrontMotor = new CANSparkMax(1); // NEO motor
+	final CANSparkMax m_leftBackMotor = new CANSparkMax(2); // NEO motor
+	final CANSparkMax m_rightBackMotor = new CANSparkMax(3); // NEO motor
 
 	robotDrive = new MecanumDrive(m_leftFrontMotor, m_leftBackMotor, m_rightFrontMotor, m_rightBackMotor);
 	//odometry = new MecanumDriveOdometry(kDriveKinematics, navx.getRotation2d(), getWheelPositions());	

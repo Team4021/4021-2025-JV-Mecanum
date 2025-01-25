@@ -75,7 +75,7 @@ public class Robot extends TimedRobot {
 		SmartDashboard.putData("Auto Mode", autonChooser);
 
     // Zero the gyroscope and reset the drive encoders
-    m_driveSubsystem.zeroGyro();
+    //m_driveSubsystem.zeroGyro();
     m_driveSubsystem.resetEncoders();
     m_LEDSubsystem.setLEDMode(LEDMode.DISABLED);
   }
@@ -94,9 +94,9 @@ public class Robot extends TimedRobot {
     // and running subsystem periodic() methods. This must be called from the robot's periodic
     // block in order for anything in the Command-based framework to work.
     CommandScheduler.getInstance().run();
-    SmartDashboard.putNumber("Gyroscope Pitch", m_driveSubsystem.getPitch());
-    SmartDashboard.putNumber("Gyroscope Yaw", m_driveSubsystem.getYaw());
-    SmartDashboard.putNumber("Gyroscope Roll", m_driveSubsystem.getRoll());
+    //SmartDashboard.putNumber("Gyroscope Pitch", m_driveSubsystem.getPitch());
+    //SmartDashboard.putNumber("Gyroscope Yaw", m_driveSubsystem.getYaw());
+    //SmartDashboard.putNumber("Gyroscope Roll", m_driveSubsystem.getRoll());
   }
 
   /** This function is called once each time the robot enters Disabled mode. */
@@ -120,7 +120,7 @@ public class Robot extends TimedRobot {
     m_autonomousCommand = autonChooser.getSelected();
     
     // Zero the gyrodcope and reset the drive encoders
-    m_driveSubsystem.zeroGyro();
+    //m_driveSubsystem.zeroGyro();
     m_driveSubsystem.resetEncoders();
 
     // schedule the selected autonomous command
@@ -153,7 +153,7 @@ public class Robot extends TimedRobot {
     }
 
     // Zero the gyroscope and reset the drive encoders
-    m_driveSubsystem.zeroGyro();
+    //m_driveSubsystem.zeroGyro();
     m_driveSubsystem.resetEncoders();
 
     Optional<Alliance> ally = DriverStation.getAlliance();
@@ -168,7 +168,7 @@ public class Robot extends TimedRobot {
       }
     }
 
-    goalAngle = m_driveSubsystem.getGyroAngle();
+    //goalAngle = m_driveSubsystem.getGyroAngle();
 
     // // Set Elevator/End Effector inital preset
     // m_CoralElevatorSubsystem.climbNeutral();
@@ -208,10 +208,10 @@ public class Robot extends TimedRobot {
     if (Math.abs(zSpeed) > 0.01) { // If we are telling the robot to rotate, then let it rotate
 			// m_driveSubsystem.driveCartesian(ySpeed, xSpeed, zSpeed, m_driveSubsystem.getRotation2d()); // field-relative
       m_driveSubsystem.driveCartesian(ySpeed, xSpeed, zSpeed); // robot-relative
-			goalAngle = m_driveSubsystem.getGyroAngle();
+			//goalAngle = m_driveSubsystem.getGyroAngle();
 		}
 		else { // Otherwise, use the gyro to maintain our current angle
-			double error = m_driveSubsystem.getGyroAngle() - goalAngle;
+			//double error = m_driveSubsystem.getGyroAngle() - goalAngle;
 			
 			double correction = Constants.GYRO_TURN_KP * error;
       if (Math.abs(correction) > Constants.MAX_POWER_GYRO) { // Maximum value we want
@@ -222,7 +222,7 @@ public class Robot extends TimedRobot {
       m_driveSubsystem.driveCartesian(ySpeed, xSpeed, -1 * correction); // robot-relative
       }
     } else {
-      goalAngle = m_driveSubsystem.getGyroAngle();
+      //goalAngle = m_driveSubsystem.getGyroAngle();
 		}
   }
 
