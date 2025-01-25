@@ -6,10 +6,24 @@ package frc.robot.subsystems;
 import frc.robot.Constants;
 
 import com.studica.frc.AHRS;
+<<<<<<< HEAD
 
+=======
+import com.ctre.phoenix6.CANBus;
+import com.ctre.phoenix6.controls.PositionDutyCycle;
+
+import com.ctre.phoenix6.hardware.TalonFX;
+>>>>>>> 262b3aaa497e360c3e7eb4e7d7dff7977f12b9f2
+
+import edu.wpi.first.wpilibj.XboxController;
 
 import edu.wpi.first.math.filter.SlewRateLimiter;
 import edu.wpi.first.wpilibj.drive.MecanumDrive;
+<<<<<<< HEAD
+=======
+import edu.wpi.first.wpilibj.drive.RobotDriveBase;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+>>>>>>> 262b3aaa497e360c3e7eb4e7d7dff7977f12b9f2
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 //import edu.wpi.first.math.controller.PIDController;
 //import edu.wpi.first.math.controller.SimpleMotorFeedforward;
@@ -30,7 +44,7 @@ public class DriveSubsystem extends SubsystemBase {
 	private static CANSparkMax m_rightBackMotor; // NEO motor
 
 	SlewRateLimiter rightFilter;
-	SlewRateLimiter leftFilter;
+	SlewRateLimiter leftFilter; 
 
 	//private double DRIVE_GEAR_RATIO = Constants.DRIVE_GEAR_RATIO;
 
@@ -39,6 +53,7 @@ public class DriveSubsystem extends SubsystemBase {
 	double leftFrontPositionZero, rightFrontPositionZero, leftBackPositionZero, rightBackPositionZero = 0.0;
 
 	private static final double TRACK_WIDTH = Constants.TRACK_WIDTH;
+<<<<<<< HEAD
 	private static final double WHEEL_BASE = Constants.WHEEL_BASE;{	
 
 	// private static final SimpleMotorFeedforward kFeedforward = new SimpleMotorFeedforward(0.17472, 2.7572, 0.45109); // kS, kV, kA Characterization Constants
@@ -47,13 +62,28 @@ public class DriveSubsystem extends SubsystemBase {
   	// private final PIDController frontRightPIDController = new PIDController(Constants.kP_FRONT_RIGHT_VELOCITY, 0, 0);
   	// private final PIDController backLeftPIDController = new PIDController(Constants.kP_BACK_LEFT_VELOCITY, 0, 0);
   	// private final PIDController backRightPIDController = new PIDController(Constants.kP_BACK_RIGHT_VELOCITY, 0, 0);
+=======
+	private static final double WHEEL_BASE = Constants.WHEEL_BASE;{
+
+	/*private static final SimpleMotorFeedforward kFeedforward = new SimpleMotorFeedforward(0.17472, 2.7572, 0.45109); // kS, kV, kA Characterization Constants
+	private static final TrapezoidProfile.Constraints kThetaControllerConstraints = new TrapezoidProfile.Constraints(Constants.kMAX_ANGULAR_SPEED_RADIANS_PER_SECOND, Constants.kMAX_ANGULAR_ACCELERATION_RADIANS_PER_SECOND_SQUARED);
+	private final PIDController frontLeftPIDController = new PIDController(Constants.kP_FRONT_LEFT_VELOCITY, 0, 0);
+  	private final PIDController frontRightPIDController = new PIDController(Constants.kP_FRONT_RIGHT_VELOCITY, 0, 0);
+  	private final PIDController backLeftPIDController = new PIDController(Constants.kP_BACK_LEFT_VELOCITY, 0, 0);
+  	private final PIDController backRightPIDController = new PIDController(Constants.kP_BACK_RIGHT_VELOCITY, 0, 0);*/
+>>>>>>> 262b3aaa497e360c3e7eb4e7d7dff7977f12b9f2
 
 	//private static final MecanumDriveKinematics kDriveKinematics =
 		new MecanumDriveKinematics(new Translation2d(WHEEL_BASE / 2, TRACK_WIDTH / 2), 
 								   new Translation2d(WHEEL_BASE / 2, -TRACK_WIDTH / 2), 
 								   new Translation2d(-WHEEL_BASE / 2, TRACK_WIDTH / 2), 
+<<<<<<< HEAD
 								   new Translation2d(-WHEEL_BASE / 2, -TRACK_WIDTH / 2));}
 
+=======
+								   new Translation2d(-WHEEL_BASE / 2, -TRACK_WIDTH / 2));
+	}
+>>>>>>> 262b3aaa497e360c3e7eb4e7d7dff7977f12b9f2
 	private static MecanumDrive robotDrive;
 	//private static MecanumDriveOdometry odometry;
   
@@ -61,19 +91,27 @@ public class DriveSubsystem extends SubsystemBase {
   public DriveSubsystem() {
     // Instantiate the Drivetrain motor controllers
 
+<<<<<<< HEAD
 	final CANSparkMax m_leftFrontMotor = new CANSparkMax(0); // NEO motor
 	final CANSparkMax m_rightFrontMotor = new CANSparkMax(1); // NEO motor
 	final CANSparkMax m_leftBackMotor = new CANSparkMax(2); // NEO motor
 	final CANSparkMax m_rightBackMotor = new CANSparkMax(3); // NEO motor
 
 	robotDrive = new MecanumDrive(m_leftFrontMotor, m_leftBackMotor, m_rightFrontMotor, m_rightBackMotor);
+=======
+	TalonFX m_leftFrontMotor = new TalonFX(0); // NEO motor
+	TalonFX m_rightFrontMotor = new TalonFX(1); // NEO motor
+	TalonFX m_leftBackMotor = new TalonFX(2); // NEO motor
+	TalonFX m_rightBackMotor = new TalonFX(3); // NEO motor
+	 robotDrive = new MecanumDrive( m_leftFrontMotor, m_rightFrontMotor, m_leftBackMotor, m_rightBackMotor);
+>>>>>>> 262b3aaa497e360c3e7eb4e7d7dff7977f12b9f2
 	//odometry = new MecanumDriveOdometry(kDriveKinematics, navx.getRotation2d(), getWheelPositions());	
-
+  
     //resetEncoders(); // Zero the drive encoders
 
     rightFilter = new SlewRateLimiter(5);
     leftFilter = new SlewRateLimiter(5);
-
+  
     System.out.println("NavX Connected: " + navx.isConnected());
   }
 
@@ -82,14 +120,13 @@ public class DriveSubsystem extends SubsystemBase {
 		m_rightFrontMotor.set(0);
 		m_leftBackMotor.set(0);
 		m_rightBackMotor.set(0);
-	}
-
+}
 	// NavX Gyroscope Methods //
 	/*public void zeroGyro() {
 		navx.reset();
 	}
 	public double getYaw() {
-		return navx.getYaw();
+		return navx.getYaw()
 	}
 	public double getPitch() {
 		return navx.getPitch();
@@ -130,7 +167,7 @@ public class DriveSubsystem extends SubsystemBase {
 		SmartDashboard.putNumber("Right Front Position", getRightFrontPosition());
 		SmartDashboard.putNumber("Left Back Position", getLeftBackPosition());
 		SmartDashboard.putNumber("Right Back Position", getRightBackPosition());*/
-	}
+}
 
 	//Not Field-Oriented (aka Robot-Oriented)
 	public void driveCartesian(double ySpeed, double xSpeed, double zRotation) {
@@ -231,4 +268,49 @@ public class DriveSubsystem extends SubsystemBase {
 	public double speedToMeters(double speed) {
 		return speed / 60 * Math.PI * Constants.WHEEL_DIAMETER;
 	} */
+
+public class Robot {
+
+    XboxController controller = new XboxController(0); // Assuming controller is on USB port 0
+
+    // ... Motor controller objects for your Mecanum wheels
+
+
+
+    public void teleopPeriodic() {
+
+        double moveForward = controller.getLeftY(); // Get forward/backward input
+
+        double strafeRight = controller.getLeftX(); // Get strafing input
+
+        double rotate = controller.getRightX(); // Get rotation input
+
+
+
+        // Calculate wheel speeds based on Mecanum math
+
+        double frontLeftSpeed = moveForward + strafeRight + rotate;
+
+        double frontRightSpeed = moveForward - strafeRight - rotate;
+
+        double backLeftSpeed = moveForward - strafeRight + rotate;
+
+        double backRightSpeed = moveForward + strafeRight - rotate;
+
+
+
+        // Set motor speeds
+
+        m_leftFrontMotor.set(frontLeftSpeed);
+
+        m_rightFrontMotor.set(frontRightSpeed);
+
+        m_leftBackMotor.set(backLeftSpeed);
+
+        m_rightBackMotor.set(backRightSpeed);
+
+    }
+
+}
+
 }
