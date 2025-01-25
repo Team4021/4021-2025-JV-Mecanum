@@ -6,40 +6,38 @@ package frc.robot.subsystems;
 import frc.robot.Constants;
 
 import com.studica.frc.AHRS;
-//import com.ctre.phoenix6.CANBus;
-//import com.ctre.phoenix6.controls.PositionDutyCycle;
+import com.ctre.phoenix6.CANBus;
+import com.ctre.phoenix6.controls.PositionDutyCycle;
 
-import edu.wpi.first.wpilibj.motorcontrol.PWMTalonFX;
-
-//import com.ctre.phoenix6.hardware.TalonFX;
+import com.ctre.phoenix6.hardware.TalonFX;
 
 import edu.wpi.first.wpilibj.XboxController;
 
 import edu.wpi.first.math.filter.SlewRateLimiter;
 import edu.wpi.first.wpilibj.drive.MecanumDrive;
-//import edu.wpi.first.wpilibj.drive.RobotDriveBase;
-//import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj.drive.RobotDriveBase;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-//import edu.wpi.first.math.controller.PIDController;
-//import edu.wpi.first.math.controller.SimpleMotorFeedforward;
-//import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.controller.PIDController;
+import edu.wpi.first.math.controller.SimpleMotorFeedforward;
+import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.MecanumDriveKinematics;
-//import edu.wpi.first.math.kinematics.MecanumDriveOdometry;
-//import edu.wpi.first.math.kinematics.MecanumDriveWheelPositions;
-//import edu.wpi.first.math.kinematics.MecanumDriveWheelSpeeds;
-//import edu.wpi.first.math.trajectory.TrapezoidProfile;
+import edu.wpi.first.math.kinematics.MecanumDriveOdometry;
+import edu.wpi.first.math.kinematics.MecanumDriveWheelPositions;
+import edu.wpi.first.math.kinematics.MecanumDriveWheelSpeeds;
+import edu.wpi.first.math.trajectory.TrapezoidProfile;
 
 /** Drivetrain ****************************************************************
  * The mecanum drivetrain subsystem of the robot. */
 public class DriveSubsystem extends SubsystemBase {
   
 	// Drivetrain Motor Controllers
-	private static PWMTalonFX m_leftFrontMotor; // NEO motor
-	private static PWMTalonFX m_rightFrontMotor; // NEO motor
-	private static PWMTalonFX m_leftBackMotor; // NEO motor
-	private static PWMTalonFX m_rightBackMotor; // NEO motor
+	private static TalonFX m_leftFrontMotor; // NEO motor
+	private static TalonFX m_rightFrontMotor; // NEO motor
+	private static TalonFX m_leftBackMotor; // NEO motor
+	private static TalonFX m_rightBackMotor; // NEO motor
 
 	SlewRateLimiter rightFilter;
 	SlewRateLimiter leftFilter; 
@@ -73,18 +71,18 @@ public class DriveSubsystem extends SubsystemBase {
   public DriveSubsystem() {
     // Instantiate the Drivetrain motor controllers
 
-	 PWMTalonFX m_leftFrontMotor = new PWMTalonFX(0); // NEO motor
-	 PWMTalonFX m_rightFrontMotor = new PWMTalonFX(1); // NEO motor
-	 PWMTalonFX m_leftBackMotor = new PWMTalonFX(2); // NEO motor
-	 PWMTalonFX m_rightBackMotor = new PWMTalonFX(3); // NEO motor
+	TalonFX m_leftFrontMotor = new TalonFX(0); // NEO motor
+	TalonFX m_rightFrontMotor = new TalonFX(1); // NEO motor
+	TalonFX m_leftBackMotor = new TalonFX(2); // NEO motor
+	TalonFX m_rightBackMotor = new TalonFX(3); // NEO motor
 	 robotDrive = new MecanumDrive( m_leftFrontMotor, m_rightFrontMotor, m_leftBackMotor, m_rightBackMotor);
 	//odometry = new MecanumDriveOdometry(kDriveKinematics, navx.getRotation2d(), getWheelPositions());	
-
+  
     //resetEncoders(); // Zero the drive encoders
 
     rightFilter = new SlewRateLimiter(5);
     leftFilter = new SlewRateLimiter(5);
-
+  
     System.out.println("NavX Connected: " + navx.isConnected());
   }
 
@@ -93,8 +91,7 @@ public class DriveSubsystem extends SubsystemBase {
 		m_rightFrontMotor.set(0);
 		m_leftBackMotor.set(0);
 		m_rightBackMotor.set(0);
-	}
-
+}
 	// NavX Gyroscope Methods //
 	/*public void zeroGyro() {
 		navx.reset();
@@ -141,7 +138,7 @@ public class DriveSubsystem extends SubsystemBase {
 		SmartDashboard.putNumber("Right Front Position", getRightFrontPosition());
 		SmartDashboard.putNumber("Left Back Position", getLeftBackPosition());
 		SmartDashboard.putNumber("Right Back Position", getRightBackPosition());*/
-	}
+}
 
 	//Not Field-Oriented (aka Robot-Oriented)
 	public void driveCartesian(double ySpeed, double xSpeed, double zRotation) {
