@@ -213,18 +213,18 @@ public class Robot extends TimedRobot {
 		else { // Otherwise, use the gyro to maintain our current angle
 			//double error = m_driveSubsystem.getGyroAngle() - goalAngle;
 			
-			double correction = Constants.GYRO_TURN_KP * error;
-      if (Math.abs(correction) > Constants.MAX_POWER_GYRO) { // Maximum value we want
-        correction = Math.copySign(Constants.MAX_POWER_GYRO, correction);
+		//double correction = Constants.GYRO_TURN_KP * error;
+      //if (Math.abs(correction) > Constants.MAX_POWER_GYRO) { // Maximum value we want
+        //correction = Math.copySign(Constants.MAX_POWER_GYRO, correction);
       }
 			
 			// m_driveSubsystem.driveCartesian(ySpeed, xSpeed, -1 * correction, m_driveSubsystem.getRotation2d()); // field-relative
-      m_driveSubsystem.driveCartesian(ySpeed, xSpeed, -1 * correction); // robot-relative
+      //m_driveSubsystem.driveCartesian(ySpeed, xSpeed, -1 * correction); // robot-relative
       }
-    } else {
+    }  {  //put else before this bracket if we use gyro
       //goalAngle = m_driveSubsystem.getGyroAngle();
 		}
-  }
+  
 
   @Override
   public void testInit() {
