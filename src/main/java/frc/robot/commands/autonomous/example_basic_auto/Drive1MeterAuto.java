@@ -20,12 +20,6 @@ public class Drive1MeterAuto extends TimedRobot {
     }
 
     @Override
-    public void autonomousInit() {
-        // Reset motor controllers to start from a known state
-        talonFX.setSelectedSensorPosition(0); // Optional: reset encoder if you had one
-    }
-
-    @Override
     public void autonomousPeriodic() {
         // Move the motor at a constant speed
         talonFX.set(motorSpeed);

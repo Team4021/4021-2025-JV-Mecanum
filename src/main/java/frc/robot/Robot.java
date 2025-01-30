@@ -153,13 +153,8 @@ public class Robot extends TimedRobot {
     }
 
     // Zero the gyroscope and reset the drive encoders
-<<<<<<< HEAD
-    m_driveSubsystem.zeroGyro();
-    //m_driveSubsystem.resetEncoders();
-=======
     //m_driveSubsystem.zeroGyro();
     m_driveSubsystem.resetEncoders();
->>>>>>> e3b95b270466c5e1dae172092720becd71f5ed49
 
     Optional<Alliance> ally = DriverStation.getAlliance();
     if (ally.isPresent()) {
