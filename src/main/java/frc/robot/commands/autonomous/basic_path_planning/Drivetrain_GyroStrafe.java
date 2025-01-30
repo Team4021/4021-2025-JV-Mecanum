@@ -14,9 +14,9 @@ import frc.robot.subsystems.DriveSubsystem;
 public class Drivetrain_GyroStrafe extends Command {
   
   	/** Configuration Constants ***********************************************/
-	private static final double kP = Constants.GYRO_TURN_KP;
+	//private static final double kP = Constants.GYRO_TURN_KP;
 	private static final double CIRCUMFRENCE = Constants.WHEEL_DIAMETER * Math.PI;
-	private static final double MAX_CORRECTION = Constants.MAX_POWER_GYRO;
+	//private static final double MAX_CORRECTION = Constants.MAX_POWER_GYRO;
 	
 	/** Instance Variables ****************************************************/
 	DriveSubsystem drivetrain = Robot.m_driveSubsystem;
@@ -30,39 +30,39 @@ public class Drivetrain_GyroStrafe extends Command {
 		goalDistance = distance / CIRCUMFRENCE;
 
 		addRequirements(drivetrain);
-  	}
+  	}}
 
   // Called when the command is initially scheduled.
-  @Override
-  public void initialize() {
-		drivetrain.driveCartesian(0, 0, 0);
-		goalAngle = drivetrain.getGyroAngle();
-		drivetrain.resetEncoders();
-  	}
+//   @Override
+//   public void initialize() {
+// 		drivetrain.driveCartesian(0, 0, 0);
+// 		goalAngle = drivetrain.getGyroAngle();
+// 		drivetrain.resetEncoders();
+//   	}
 
   // Called every time the scheduler runs while the command is scheduled.
-  @Override
-  public void execute() {
-    double error = goalAngle - drivetrain.getGyroAngle();
+//   @Override
+//   public void execute() {
+//     double error = goalAngle - drivetrain.getGyroAngle();
 		
-		double correction = kP * error;
+// 		double correction = kP * error;
 
-		correction = Math.min(MAX_CORRECTION, correction);
-		correction = Math.max(-MAX_CORRECTION, correction);
+// 		correction = Math.min(MAX_CORRECTION, correction);
+// 		correction = Math.max(-MAX_CORRECTION, correction);
 		
-		drivetrain.driveCartesian(strafePower, 0, -1 * correction);
- 	 }
+// 		drivetrain.driveCartesian(strafePower, 0, -1 * correction);
+//  	 }
 
-  // Returns true when the command should end.
-  @Override
-  public boolean isFinished() {
-    boolean rightFrontGoalReached = Math.abs(drivetrain.getRightFrontPosition()) >= goalDistance;
-		boolean rightBackGoalReached = Math.abs(drivetrain.getRightBackPosition()) >= goalDistance;
-		return rightFrontGoalReached || rightBackGoalReached;
-  	}
+//   // Returns true when the command should end.
+//   @Override
+//   public boolean isFinished() {
+//     boolean rightFrontGoalReached = Math.abs(drivetrain.getRightFrontPosition()) >= goalDistance;
+// 		boolean rightBackGoalReached = Math.abs(drivetrain.getRightBackPosition()) >= goalDistance;
+// 		return rightFrontGoalReached || rightBackGoalReached;
+//   	}
 
-    // Called once the command ends or is interrupted.
-	public void end(boolean interrupted) {
-		drivetrain.driveCartesian(0, 0, 0);
-	}
-}
+//     // Called once the command ends or is interrupted.
+// 	public void end(boolean interrupted) {
+// 		drivetrain.driveCartesian(0, 0, 0);
+// 	}
+// }

@@ -75,7 +75,7 @@ public class Robot extends TimedRobot {
 		SmartDashboard.putData("Auto Mode", autonChooser);
 
     // Zero the gyroscope and reset the drive encoders
-    m_driveSubsystem.zeroGyro();
+    //m_driveSubsystem.zeroGyro();
     m_driveSubsystem.resetEncoders();
     m_LEDSubsystem.setLEDMode(LEDMode.DISABLED);
   }
@@ -120,7 +120,7 @@ public class Robot extends TimedRobot {
     m_autonomousCommand = autonChooser.getSelected();
     
     // Zero the gyrodcope and reset the drive encoders
-    m_driveSubsystem.zeroGyro();
+    //m_driveSubsystem.zeroGyro();
     m_driveSubsystem.resetEncoders();
 
     // schedule the selected autonomous command
@@ -153,8 +153,13 @@ public class Robot extends TimedRobot {
     }
 
     // Zero the gyroscope and reset the drive encoders
+<<<<<<< HEAD
     m_driveSubsystem.zeroGyro();
     //m_driveSubsystem.resetEncoders();
+=======
+    //m_driveSubsystem.zeroGyro();
+    m_driveSubsystem.resetEncoders();
+>>>>>>> e3b95b270466c5e1dae172092720becd71f5ed49
 
     Optional<Alliance> ally = DriverStation.getAlliance();
     if (ally.isPresent()) {
@@ -168,7 +173,7 @@ public class Robot extends TimedRobot {
       }
     }
 
-    goalAngle = m_driveSubsystem.getGyroAngle();
+    //goalAngle = m_driveSubsystem.getGyroAngle();
 
     // // Set Elevator/End Effector inital preset
     // m_CoralElevatorSubsystem.climbNeutral();
@@ -208,23 +213,23 @@ public class Robot extends TimedRobot {
     if (Math.abs(zSpeed) > 0.01) { // If we are telling the robot to rotate, then let it rotate
 			// m_driveSubsystem.driveCartesian(ySpeed, xSpeed, zSpeed, m_driveSubsystem.getRotation2d()); // field-relative
       m_driveSubsystem.driveCartesian(ySpeed, xSpeed, zSpeed); // robot-relative
-			goalAngle = m_driveSubsystem.getGyroAngle();
+			//goalAngle = m_driveSubsystem.getGyroAngle();
 		}
 		else { // Otherwise, use the gyro to maintain our current angle
-			double error = m_driveSubsystem.getGyroAngle() - goalAngle;
+			//double error = m_driveSubsystem.getGyroAngle() - goalAngle;
 			
-			double correction = Constants.GYRO_TURN_KP * error;
-      if (Math.abs(correction) > Constants.MAX_POWER_GYRO) { // Maximum value we want
-        correction = Math.copySign(Constants.MAX_POWER_GYRO, correction);
+		//double correction = Constants.GYRO_TURN_KP * error;
+      //if (Math.abs(correction) > Constants.MAX_POWER_GYRO) { // Maximum value we want
+        //correction = Math.copySign(Constants.MAX_POWER_GYRO, correction);
       }
 			
 			// m_driveSubsystem.driveCartesian(ySpeed, xSpeed, -1 * correction, m_driveSubsystem.getRotation2d()); // field-relative
-      m_driveSubsystem.driveCartesian(ySpeed, xSpeed, -1 * correction); // robot-relative
+      //m_driveSubsystem.driveCartesian(ySpeed, xSpeed, -1 * correction); // robot-relative
       }
-    } else {
-      goalAngle = m_driveSubsystem.getGyroAngle();
+    }  {  //put else before this bracket if we use gyro
+      //goalAngle = m_driveSubsystem.getGyroAngle();
 		}
-  }
+  
 
   @Override
   public void testInit() {
