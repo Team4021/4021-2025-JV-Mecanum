@@ -6,8 +6,8 @@ package frc.robot.subsystems;
 import frc.robot.Constants;
 
 import com.studica.frc.AHRS;
-import com.ctre.phoenix6.CANBus;
-import com.ctre.phoenix6.controls.PositionDutyCycle;
+//import com.ctre.phoenix6.CANBus;
+//import com.ctre.phoenix6.controls.PositionDutyCycle;
 
 import com.ctre.phoenix6.hardware.TalonFX;
 
@@ -15,19 +15,19 @@ import edu.wpi.first.wpilibj.XboxController;
 
 import edu.wpi.first.math.filter.SlewRateLimiter;
 import edu.wpi.first.wpilibj.drive.MecanumDrive;
-import edu.wpi.first.wpilibj.drive.RobotDriveBase;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+//import edu.wpi.first.wpilibj.drive.RobotDriveBase;
+//import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import edu.wpi.first.math.controller.PIDController;
-import edu.wpi.first.math.controller.SimpleMotorFeedforward;
-import edu.wpi.first.math.geometry.Pose2d;
+//import edu.wpi.first.math.controller.PIDController;
+//import edu.wpi.first.math.controller.SimpleMotorFeedforward;
+//import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.MecanumDriveKinematics;
-import edu.wpi.first.math.kinematics.MecanumDriveOdometry;
-import edu.wpi.first.math.kinematics.MecanumDriveWheelPositions;
-import edu.wpi.first.math.kinematics.MecanumDriveWheelSpeeds;
-import edu.wpi.first.math.trajectory.TrapezoidProfile;
+//import edu.wpi.first.math.kinematics.MecanumDriveOdometry;
+//import edu.wpi.first.math.kinematics.MecanumDriveWheelPositions;
+//import edu.wpi.first.math.kinematics.MecanumDriveWheelSpeeds;
+//import edu.wpi.first.math.trajectory.TrapezoidProfile;
 
 /** Drivetrain ****************************************************************
  * The mecanum drivetrain subsystem of the robot. */
@@ -66,16 +66,16 @@ public class DriveSubsystem extends SubsystemBase {
 	}
 	private static MecanumDrive robotDrive;
 	//private static MecanumDriveOdometry odometry;
-  
+    public DriveSubsystem() {
   /** Subsystem for controlling the Drivetrain and accessing the NavX Gyroscope */
-  public DriveSubsystem() {
+
     // Instantiate the Drivetrain motor controllers
 
 	TalonFX m_leftFrontMotor = new TalonFX(0); // NEO motor
 	TalonFX m_rightFrontMotor = new TalonFX(1); // NEO motor
 	TalonFX m_leftBackMotor = new TalonFX(2); // NEO motor
 	TalonFX m_rightBackMotor = new TalonFX(3); // NEO motor
-	 robotDrive = new MecanumDrive( m_leftFrontMotor, m_rightFrontMotor, m_leftBackMotor, m_rightBackMotor);
+	 robotDrive = new MecanumDrive( m_leftFrontMotor::set, m_rightFrontMotor::set, m_leftBackMotor::set, m_rightBackMotor::set);
 	//odometry = new MecanumDriveOdometry(kDriveKinematics, navx.getRotation2d(), getWheelPositions());	
   
     //resetEncoders(); // Zero the drive encoders
@@ -97,7 +97,7 @@ public class DriveSubsystem extends SubsystemBase {
 		navx.reset();
 	}
 	public double getYaw() {
-		return navx.getYaw()
+		return navx.getYaw();
 	}
 	public double getPitch() {
 		return navx.getPitch();
@@ -112,7 +112,7 @@ public class DriveSubsystem extends SubsystemBase {
 		return -navx.getRate();
 	}
 
-	/** Odometry Methods *******************************************************/
+	/* *Odometry Methods *******************************************************/
 	/*public Rotation2d getRotation2d() {
 		return Rotation2d.fromDegrees(navx.getAngle());
 	}
@@ -149,9 +149,9 @@ public class DriveSubsystem extends SubsystemBase {
 		robotDrive.driveCartesian(ySpeed, xSpeed, zRotation, currentAngle);
 	}
 
-	/** Get the encoder positions or speeds **************************************/
-	/*public double getLeftFrontPosition() { // Position is returned in units of revolutions
-		return (m_leftFrontMotor.getEncoder().getPosition() / DRIVE_GEAR_RATIO - leftFrontPositionZero); // DRIVE_GEAR_RATIO : 1 is our drivetrain gear ratio
+	/* * Get the encoder positions or speeds **************************************/
+	//public double getLeftFrontPosition() { // Position is returned in units of revolutions
+		/*return (m_leftFrontMotor.getEncoder().getPosition() / DRIVE_GEAR_RATIO - leftFrontPositionZero); // DRIVE_GEAR_RATIO : 1 is our drivetrain gear ratio
 	}
 	public double getRightFrontPosition() { // Position is returned in units of revolutions
 		return -1 * (m_rightFrontMotor.getEncoder().getPosition() / DRIVE_GEAR_RATIO - rightFrontPositionZero); // DRIVE_GEAR_RATIO : 1 is our drivetrain gear ratio
