@@ -1,6 +1,7 @@
 package frc.robot.commands.autonomous.example_basic_auto;
 
 
+
 import com.ctre.phoenix6.hardware.TalonFX;
 
 import edu.wpi.first.wpilibj.TimedRobot;
@@ -25,7 +26,7 @@ public class Drive1MeterAuto extends TimedRobot {
         talonFX.set(motorSpeed);
 
         // Set a timer or some logic to control how long it should move forward
-        Timer.delay(0.1); // Just to avoid a tight loop (you can adjust this)
+        Timer.delay(7.0); // Just to avoid a tight loop (you can adjust this)
     }
 
     @Override
