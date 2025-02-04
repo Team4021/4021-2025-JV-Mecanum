@@ -7,12 +7,13 @@ import com.ctre.phoenix6.hardware.TalonFX;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.Timer;
 
-public class Drive1MeterAuto extends TimedRobot {
+public class MecanumAuto extends TimedRobot {
     // Declare TalonFX motor controller
     private TalonFX talonFX;
 
     // Speed setting for the motors
     private double motorSpeed = 0.5;
+    private double motorStop = 0.0;
 
     @Override
     public void robotInit() {
@@ -26,7 +27,9 @@ public class Drive1MeterAuto extends TimedRobot {
         talonFX.set(motorSpeed);
 
         // Set a timer or some logic to control how long it should move forward
-        Timer.delay(7.0); // Just to avoid a tight loop (you can adjust this)
+        Timer.delay(1.5); // Just to avoid a tight loop (you can adjust this)
+
+        talonFX.set(motorStop);
     }
 
     @Override

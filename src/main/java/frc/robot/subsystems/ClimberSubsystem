@@ -1,0 +1,55 @@
+import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj2.command.CommandBase;
+import edu.wpi.first.wpilibj.TalonFX;
+import edu.wpi.first.wpilibj2.command.SubsystemBase;
+
+public class ClimberSubsystem extends SubsystemBase {
+    private final TalonFX climberMotor;  // Motor controller for the climber
+
+    public ClimberSubsystem() {
+        climberMotor = new TalonFX(1);  // Assuming motor is on CAN ID 1
+    }
+
+    // Moves the climber at the given speed
+    public void moveClimber(double speed) {
+        climberMotor.set(speed);  // Set the motor speed, typically between -1.0 and 1.0
+    }
+
+    // Stops the climber
+    public void stopClimber() {
+        climberMotor.set(0);  // Stop the motor by setting speed to 0
+    }
+}
+
+public class ClimbCommand extends CommandBase {
+    private final ClimberSubsystem climber;
+    private final XboxController xboxController;
+
+    public ClimbCommand(ClimberSubsystem climber, XboxController xboxController) {
+        this.climber = climber;
+        this.xboxController = xboxController;
+        addRequirements(climber); // Ensures the subsystem is used exclusively
+    }
+
+    @Override
+    public void initialize() {
+        climber.stopClimber();
+    }
+
+    @Override
+    public void execute() {
+        // Example of controlling the climber with the left Y-axis of the Xbox controller
+        double speed = xboxController.getLeftY(); // Left Y-axis controls speed (-1 to 1)
+        climber.moveClimber(speed);
+    }
+
+    @Override
+    public void end(boolean interrupted) {
+        climber.stopClimber();
+    }
+
+    @Override
+    public boolean isFinished() {
+        return false; // Continue running until manually stopped
+    }
+}
