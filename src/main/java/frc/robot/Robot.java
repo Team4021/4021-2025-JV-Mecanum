@@ -3,6 +3,7 @@
 
 package frc.robot;
 
+
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.XboxController;
@@ -10,6 +11,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import java.util.Optional;
+
+import com.ctre.phoenix6.hardware.TalonFX;
 
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.wpilibj.DriverStation;
@@ -171,6 +174,9 @@ public class Robot extends TimedRobot {
     //m_CoralElevatorSubsystem.setDefaultCommand(new CoralElevatorMoveCommand());
   }
 
+  private final int BUTTON_NUMBER = 1; // Define the button number you want to use
+  private TalonFX motor;
+  
   /** This function is called periodically during operator control. */
   @Override
   public void teleopPeriodic() {
@@ -179,6 +185,15 @@ public class Robot extends TimedRobot {
     double rotate = MathUtil.applyDeadband(controller.getRawAxis(4), 0.15) * 0.6; // Get rotation input
    m_driveSubsystem.drive(moveForward, strafeRight, rotate);
   
+
+   if (controller.getRawButton(6)) { // 6 = right bumper
+    // Move the motor forward when the button is pressed
+    motor.set( 0.1); // Adjust the speed (0.0 to 1.0) as needed
+} else {
+    // Stop the motor when the button is released
+    motor.set( 0.0);
+}
+
     // Log controller inputs to SmartDashboard
     // SmartDashboard.putNumber("Controller: Right Trigger", controller.getRawAxis(Constants.RIGHT_TRIGGER_AXIS));
     // SmartDashboard.putNumber("Controller: Left Trigger", controller.getRawAxis(Constants.LEFT_TRIGGER_AXIS));
@@ -266,6 +281,7 @@ public class Robot extends TimedRobot {
     // // Test Controls //
     // new Trigger(() -> controller.getRawButton(Constants.A_BUTTON)).whileTrue(new DriveToTrackedTargetCommand(1)); // Track AprilTag
   }
+
 }
 
 
