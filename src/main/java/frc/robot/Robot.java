@@ -174,9 +174,10 @@ public class Robot extends TimedRobot {
     //m_CoralElevatorSubsystem.setDefaultCommand(new CoralElevatorMoveCommand());
   }
 
-  private final int BUTTON_NUMBER = 1; // Define the button number you want to use
-  private TalonFX motor;
-  
+ // private final int BUTTON_NUMBER = 1; // Define the button number you want to use
+  //private TalonFX motor;
+  TalonFX motor = new TalonFX(4); // Shooter?
+
   /** This function is called periodically during operator control. */
   @Override
   public void teleopPeriodic() {
@@ -188,7 +189,7 @@ public class Robot extends TimedRobot {
 
    if (controller.getRawButton(6)) { // 6 = right bumper
     // Move the motor forward when the button is pressed
-    motor.set( 0.1); // Adjust the speed (0.0 to 1.0) as needed
+    motor.set(  -0.2); // Adjust the speed (0.0 to 1.0) as needed
 } else {
     // Stop the motor when the button is released
     motor.set( 0.0);
