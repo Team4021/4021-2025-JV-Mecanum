@@ -12,6 +12,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import java.util.Optional;
 
+import com.ctre.phoenix6.configs.TalonFXConfiguration;
 import com.ctre.phoenix6.hardware.TalonFX;
 
 import edu.wpi.first.math.MathUtil;
@@ -25,6 +26,17 @@ import edu.wpi.first.wpilibj2.command.WaitCommand;
 //import frc.robot.commands.autonomous.example_basic_auto.Drive1MeterAuto;
 import frc.robot.subsystems.DriveSubsystem;
 
+
+import edu.wpi.first.cameraserver.CameraServer;
+import edu.wpi.first.cscore.UsbCamera;
+
+// import com.ctre.phoenix.motorcontrol.can.TalonFX;
+// import com.ctre.phoenix.motorcontrol.ControlMode;
+// import com.ctre.phoenix.motorcontrol.SensorCollection;
+// import com.ctre.phoenix.motorcontrol.FeedbackDevice;
+
+
+
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
  * each mode, as described in the TimedRobot documentation. If you change the name of this class or
@@ -34,6 +46,10 @@ import frc.robot.subsystems.DriveSubsystem;
 public class Robot extends TimedRobot {
 
   Command m_autonomousCommand;
+
+
+UsbCamera LiftCam;
+
 	SendableChooser<Command> autonChooser = new SendableChooser<Command>(); // Create a chooser to select an autonomous command
 
   public static boolean manualDriveControl = true;
@@ -67,7 +83,13 @@ public class Robot extends TimedRobot {
     //m_driveSubsystem.zeroGyro();
     m_driveSubsystem.resetEncoders();
     //m_LEDSubsystem.setLEDMode(LEDMode.DISABLED);
+
+LiftCam = CameraServer.startAutomaticCapture(0);
+
   }
+
+
+
 
   /**
    * This function is called every robot packet, no matter the mode. Use this for items like
@@ -177,23 +199,67 @@ public class Robot extends TimedRobot {
  // private final int BUTTON_NUMBER = 1; // Define the button number you want to use
   //private TalonFX motor;
   TalonFX motor = new TalonFX(4); // Shooter?
-
-  /** This function is called periodically during operator control. */
-  @Override
+  TalonFX climber = new TalonFX(41); //climber
+  
+  
   public void teleopPeriodic() {
-    double moveForward = MathUtil.applyDeadband(-controller.getRawAxis(1), 0.1) * 0.6; // Get forward/backward input, put negative before controller after driving
-    double strafeRight = MathUtil.applyDeadband(controller.getRawAxis(0), 0.05) * 0.6; // Get strafing input
-    double rotate = MathUtil.applyDeadband(controller.getRawAxis(4), 0.15) * 0.6; // Get rotation input
+    double moveForward = MathUtil.applyDeadband(-controller.getRawAxis(1), 0.25) * 0.6; // Get forward/backward input, put negative before controller after driving
+    double strafeRight = MathUtil.applyDeadband(controller.getRawAxis(0), 0.25) * 0.6; // Get strafing input
+    double rotate = MathUtil.applyDeadband(controller.getRawAxis(4), 0.25) * 0.6; // Get rotation input
    m_driveSubsystem.drive(moveForward, strafeRight, rotate);
   
 
    if (controller.getRawButton(6)) { // 6 = right bumper
     // Move the motor forward when the button is pressed
-    motor.set(  -0.2); // Adjust the speed (0.0 to 1.0) as needed
+    motor.set( -0.1); // Adjust the speed (0.0 to 1.0) as needed
 } else {
     // Stop the motor when the button is released
     motor.set( 0.0);
 }
+
+if (controller.getRawButton(1)) { 
+  // Move the motor backward when button 1 is pressed
+  climber.set(-0.4); // Adjust the speed (0.0 to 1.0) as needed
+} else if (controller.getRawButton(2)) { 
+  // Move the motor forward when button 2 is pressed
+  climber.set(0.4); // Adjust the speed (0.0 to -1.0) as needed
+} else {
+  // Stop the motor when neither button is pressed
+  climber.set(0.0);
+}
+
+
+  // class robot {
+  //   private TalonFX motor;
+  //   private static final double TICKS_PER_REVOLUTION = 2048; // TalonFX encoder resolution (typically 2048 ticks per revolution)
+  //   private static final double MAX_RPM = 5000; // Max RPM for motor (adjust according to your motor specs)
+    
+  //   public char TalonFXRotation(int motorID) {
+  //       // Initialize TalonFX motor
+  //       motor = new TalonFX(41);
+
+  //       // Set up the motor's sensor for position control
+  //       motor.configSelectedFeedbackSensor(FeedbackDevice.IntegratedSensor, 0, 0);
+  //       motor.setSensorPhase(true);  // Set the sensor phase (may need adjustment depending on wiring)
+  //   }
+
+//     // Method to perform a set number of rotations
+//     public void rotateTurns(double numberOfTurns) {
+//         // Convert the number of turns to ticks
+//         double targetPosition = .5 * 2048;
+        
+//         // Set the motor to position control mode and set target position
+//         motor.set(ControlMode.Position, targetPosition);
+//     }
+
+//     public void main(String[] args) {
+//         TalonFXRotation robotMotor = new TalonFXRotation(1); // Motor ID 1 as an example
+        
+//         // Rotate the motor by 5 turns
+//         robotMotor.rotateTurns(5);
+//     }
+// }
+
 
     // Log controller inputs to SmartDashboard
     // SmartDashboard.putNumber("Controller: Right Trigger", controller.getRawAxis(Constants.RIGHT_TRIGGER_AXIS));
@@ -253,7 +319,7 @@ public class Robot extends TimedRobot {
 
   /**
    * Use this method to define your button->command mappings. Buttons can be created by
-   * instantiating a {@link GenericHID} or onse of its subclasses ({@link edu.wpi.first.wpilibj.Joystick} 
+   * instantiating a {@link GenericHID} or JEDI LIKES BBC onse of its subclasses ({@link edu.wpi.first.wpilibj.Joystick} 
    * or {@link XboxController}), and then passing it to a {@link edu.wpi.first.wpilibj2.command.button.Trigger}.
    */
   private void configureButtonBindings() {
